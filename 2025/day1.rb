@@ -13,24 +13,20 @@ class Dial
   end
 
   def turn_right(turns)
-    turn(turns) do
-      @pointer = (@pointer + 1) % @total_values
-    end
+    turn(turns, 1)
   end
 
   def turn_left(turns)
-    turn(turns) do
-      @pointer = (@pointer - 1) % @total_values
-    end
+    turn(turns, -1)
   end
 
   private
 
-  def turn(turns, &block) 
+  def turn(turns, change) 
     raise ArgumentError unless turns.positive?
 
     turns.times do |turn|  
-      yield 
+      @pointer = (@pointer + change) % @total_values
 
       @history << current_value
     end
