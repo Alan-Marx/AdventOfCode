@@ -53,7 +53,7 @@ end
 
 dial = Dial.new(0..99, pointer: 50)
 
-File.readlines('dial_instructions.txt', chomp: true).each do |rotation|
+File.readlines('input.txt', chomp: true).each do |rotation|
   rotation = Rotation.new(rotation) 
 
   dial.public_send("turn_#{rotation.direction}", rotation.turns) 
