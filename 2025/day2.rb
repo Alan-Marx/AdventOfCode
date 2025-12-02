@@ -1,5 +1,3 @@
-require 'debug'
-
 path = File.join(File.dirname(__FILE__), 'day2.txt')
 
 ranges = File.read(path).split(',').map do |range|
