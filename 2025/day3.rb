@@ -1,26 +1,20 @@
 
 require 'debug' 
 
-class BatteryBank 
-  attr_reader :joltages 
+def calculate_max_joltage(joltages, length)
+  return "" if length.zero?
 
-  def initialize(joltages)
-    @joltages = joltages.chars
-  end
+  available_joltages = joltages[..-length]
 
-  def maximum_joltage
-    first_joltage = joltages[..-2].max
+  max_available_joltage = available_joltages.max
 
-    remaining_joltages_index = joltages.index(first_joltage) + 1
+  next_available_joltage_index = available_joltages.index(max_available_joltage) + 1
 
-    second_joltage = joltages[remaining_joltages_index..].max 
+  remaining_joltages = joltages[next_available_joltage_index..]
 
-    "#{first_joltage}#{second_joltage}".to_i
-  end
+  max_available_joltage.to_s + calculate_max_joltage(remaining_joltages, length - 1)
 end
 
 path = File.join(File.dirname(__FILE__), 'day3.txt')
 
-battery_banks = File.readlines(path, chomp: true).collect { |line| BatteryBank.new(line) }
-
-puts battery_banks.sum(&:maximum_joltage)
+puts File.readlines(path, chomp: true).sum { |joltages| calculate_max_joltage(joltages.chars, 12).to_i }
