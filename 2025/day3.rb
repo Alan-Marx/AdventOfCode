@@ -11,9 +11,9 @@ class BatteryBank
   def maximum_joltage
     first_joltage = joltages[..-2].max
 
-    first_joltage_index = joltages.index(first_joltage)
+    remaining_joltages_index = joltages.index(first_joltage) + 1
 
-    second_joltage = joltages[(first_joltage_index + 1)..].max 
+    second_joltage = joltages[remaining_joltages_index..].max 
 
     "#{first_joltage}#{second_joltage}".to_i
   end
