@@ -40,8 +40,6 @@ def remove_paper_rolls(paper_rolls, grid)
   paper_rolls.each do |paper_roll, _neighbours|
     grid[paper_roll[0]][paper_roll[1]] = '.'
   end
-
-  grid
 end
 
 def count_movable_paper_rolls(grid)
@@ -53,7 +51,9 @@ def count_movable_paper_rolls(grid)
 
   return 0 if countable_paper_rolls.empty?
 
-  countable_paper_rolls.count + count_movable_paper_rolls(remove_paper_rolls(countable_paper_rolls, grid))
+  remove_paper_rolls(countable_paper_rolls, grid)
+
+  countable_paper_rolls.count + count_movable_paper_rolls(grid)
 end
 
 grid = File.readlines(File.join(__dir__, 'day4.txt'), chomp: true).collect(&:chars)
